@@ -1,13 +1,38 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  font-size: 72.5%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #333333;
+  font-family: NanumGothic-Regular;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+strong {
+  font-family: NanumGothic-ExtraBold;
+}
+
+@font-face {
+  font-family: NanumGothic-Regular;
+  src: url(assets/fonts/NanumGothic-Regular.ttf);
+}
+
+@font-face {
+  font-family: NanumGothic-Bold;
+  src: url(assets/fonts/NanumGothic-Bold.ttf);
+}
+
+@font-face {
+  font-family: NanumGothic-ExtraBold;
+  src: url(assets/fonts/NanumGothic-ExtraBold.ttf);
 }
