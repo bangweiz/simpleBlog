@@ -2,13 +2,14 @@ import React from "react";
 import {ImageCard} from "../components/ImageCard";
 import {useTags} from "../utils/tagUtils";
 import {useWebsiteTitle} from "../utils/websiteUtils";
+import {Container} from "./CategoryView";
 
 export const TagView = () => {
     const {tags} = useTags()
     useWebsiteTitle("Tags")
 
     return (
-        <div className="flex-space-between" style={{flexWrap: 'wrap'}}>
+        <Container className="flex-space-between">
             {tags.map(tag => {
                 return (
                     <ImageCard
@@ -19,6 +20,6 @@ export const TagView = () => {
                     />
                 )
             })}
-        </div>
+        </Container>
     )
 }

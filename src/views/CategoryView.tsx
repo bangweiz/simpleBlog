@@ -2,13 +2,15 @@ import React from "react";
 import {ImageCard} from "../components/ImageCard";
 import {useCategories} from "../utils/categoryUtils";
 import {useWebsiteTitle} from "../utils/websiteUtils";
+import styled from "@emotion/styled";
+import {breakpointVariables} from "../config/style";
 
 export const CategoryView = () => {
     const {categories} = useCategories();
     useWebsiteTitle("Categories")
 
     return (
-        <div className="flex-space-between" style={{flexWrap: 'wrap'}}>
+        <Container className="flex-space-between">
             {categories.map(category => {
                 return (
                     <ImageCard
@@ -20,6 +22,14 @@ export const CategoryView = () => {
                     />
                 );
             })}
-        </div>
+        </Container>
     )
 }
+
+export const Container = styled.div`
+  flex-wrap: wrap;
+  
+  @media screen and (max-width: ${breakpointVariables.mobile}) {
+    justify-content: space-around;
+  }
+`

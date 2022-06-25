@@ -4,7 +4,7 @@ import {EditOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "../../utils/authUtils";
 import {useLocation} from "react-router";
-import {colorVariables} from "../../config/style";
+import {breakpointVariables, colorVariables} from "../../config/style";
 
 export const Header = () => {
     const {user, logout} = useAuth()
@@ -97,6 +97,10 @@ const MyHeader = styled.header`
   position: sticky;
   top: 0;
   z-index: 10;
+  
+  @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+    display: none;
+  }
 `
 
 const Title = styled.div`

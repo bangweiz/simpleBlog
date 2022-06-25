@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import {Form, Input, Typography} from "antd"
 import {Link} from "react-router-dom";
-import {colorVariables} from "../../config/style";
+import {breakpointVariables, colorVariables} from "../../config/style";
 import {PrimaryButton} from "../../components/PrimaryButton";
 import {useWebsiteTitle} from "../../utils/websiteUtils";
 
@@ -85,6 +85,10 @@ export const FromContainer = styled.div`
   transform: translate(-50%, -50%);
   border-radius: .5rem;
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+
+  @media screen and (max-width: ${breakpointVariables.mobile}) {
+    width: 90%;
+  }
 `
 
 export const MyInput = styled(Input)`

@@ -4,7 +4,7 @@ import {Outlet} from "react-router";
 
 import {Header} from "./components/layout/Header";
 import {Footer} from "./components/layout/Footer";
-import {colorVariables} from "./config/style";
+import {breakpointVariables, colorVariables} from "./config/style";
 
 export const BlogApp = () => {
     return (
@@ -23,4 +23,9 @@ const Main = styled.main`
   margin: 0 auto;
   min-height: calc(100vh - 12rem);
   padding: 2.5rem 0;
+  
+  @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+    width: 100%;
+    padding: 2.5rem;
+  }
 `

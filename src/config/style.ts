@@ -21,3 +21,15 @@ export const fontVariables = {
     fontFamilyBold,
     fontFamilyExtraBold
 }
+
+const desktop = '1200px'
+const tabletLandscape = '992px'
+const tabletPortrait = '768px'
+const mobile = '576px'
+
+export const breakpointVariables = {
+    desktop,
+    tabletLandscape,
+    tabletPortrait,
+    mobile
+}

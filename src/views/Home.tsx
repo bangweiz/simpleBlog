@@ -12,6 +12,7 @@ import {useTags} from "../utils/tagUtils";
 import {useArticles} from "../utils/articleUtils";
 import {useWebsiteTitle} from "../utils/websiteUtils";
 import {Spinner} from "../components/Spinner";
+import {breakpointVariables} from "../config/style";
 
 export const Home = () => {
     useWebsiteTitle("Home")
@@ -30,7 +31,7 @@ export const Home = () => {
     }, [])
 
     return (
-        <div className="flex-space-between">
+        <Container className="flex-space-between">
             <ArticleList>
                 <Spinner loading={loading}>
                     {articles.map(article => <ArticleItem article={article} key={article.id} />)}
@@ -43,14 +44,28 @@ export const Home = () => {
                 <MyCard title="Archive" content={<ArchiveList archives={archives} />}/>
                 <MyCard title="Recently Added" content={<ArticleTitleList articles={recentArticles} />}/>
             </CardList>
-        </div>
+        </Container>
     )
 }
 
+const Container = styled.div`
+  @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+    flex-direction: column-reverse;
+  }
+`
+
 const CardList = styled.div`
   width: 30rem;
+
+  @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+    width: 100%;
+  }
 `
 
 const ArticleList = styled.div`
   width: 65rem;
+
+  @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+    width: 100%;
+  }
 `

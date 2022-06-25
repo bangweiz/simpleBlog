@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import {EyeOutlined, ClockCircleOutlined, CommentOutlined} from "@ant-design/icons";
 import {TagList} from "./TagList";
 import {Link} from "react-router-dom";
-import {colorVariables} from "../config/style";
+import {breakpointVariables, colorVariables} from "../config/style";
 
 export const ArticleItem = (props: Props) => {
     const {title, summary, author, tags, viewCounts, commentCounts, createDate, id} = props.article
@@ -53,8 +53,15 @@ const ArticleContainer = styled.div`
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
   
   .article-title-container {
-    height: 3rem;
     line-height: 3rem;
+    
+    @media screen and (max-width: ${breakpointVariables.mobile}) {
+      flex-direction: column;
+      
+      .article-view-comment {
+        justify-content: flex-start;
+      }
+    }
     
     .article-title {
       font-size: 2rem;
@@ -87,17 +94,34 @@ const ArticleContainer = styled.div`
   }
   
   .article-author-container {
+    @media screen and (max-width: ${breakpointVariables.mobile}) {
+      flex-direction: column;
+    }
+    
     .article-author {
       width: 5rem;
+
+      @media screen and (max-width: ${breakpointVariables.mobile}) {
+        width: 100%;
+      }
     }
     
     .article-tags {
       width: calc(100% - 25rem);
+
+      @media screen and (max-width: ${breakpointVariables.mobile}) {
+        width: 100%;
+      }
     }
     
     .article-date {
       text-align: right;
       width: 20rem;
+
+      @media screen and (max-width: ${breakpointVariables.mobile}) {
+        width: 100%;
+        text-align: left;
+      }
       
       span {
         margin-right: .5rem;

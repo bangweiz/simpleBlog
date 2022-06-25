@@ -5,7 +5,7 @@ export const MDDisplay = (props: Props) => {
     const {content} = props
 
     return (
-        <MDEditor.Markdown source={content} style={{ whiteSpace: 'pre-wrap' }} />
+        <MDEditor.Markdown source={content} />
     )
 }
 

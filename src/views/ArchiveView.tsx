@@ -8,6 +8,8 @@ import {ArchiveList} from "../components/ArchiveList";
 import {useArchives} from "../utils/archiveUtils";
 import {useWebsiteTitle} from "../utils/websiteUtils";
 import {Spinner} from "../components/Spinner";
+import styled from "@emotion/styled";
+import {breakpointVariables} from "../config/style";
 
 export const ArchiveView = () => {
     useWebsiteTitle("Archive")
@@ -35,15 +37,37 @@ export const ArchiveView = () => {
     }, [year, month])
 
     return (
-        <div className="flex-space-between">
-            <div style={{width: "30rem"}}>
+        <Container className="flex-space-between">
+            <div className="archive">
                 <MyCard title="Archive" content={<ArchiveList archives={archives} />}/>
             </div>
-            <div style={{width: "65rem"}}>
+            <div className="articles">
                 <Spinner loading={loading}>
                     {articles.map(article => <ArticleItem article={article} key={article.id} />)}
                 </Spinner>
             </div>
-        </div>
+        </Container>
     )
 }
+
+const Container = styled.div`
+  @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+    flex-direction: column;
+  }
+  
+  .archive {
+    width: 30rem;
+
+    @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+      width: 100%;
+    }
+  }
+  
+  .articles {
+    width: 65rem;
+
+    @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
+      width: 100%;
+    }
+  }
+`
