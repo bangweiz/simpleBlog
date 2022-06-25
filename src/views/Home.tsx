@@ -11,25 +11,30 @@ import {useArchives} from "../utils/archiveUtils";
 import {useTags} from "../utils/tagUtils";
 import {useArticles} from "../utils/articleUtils";
 import {useWebsiteTitle} from "../utils/websiteUtils";
+import {Spinner} from "../components/Spinner";
 
 export const Home = () => {
+    useWebsiteTitle("Home")
     const {archives} = useArchives()
     const {tags} = useTags()
     const {hotArticles, recentArticles} = useArticles();
 
-    useWebsiteTitle("Home")
-
     const [articles, setArticles] = useState<Article[]>([])
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
+        setLoading(true)
         getArticles({page: 1, pageSize: 10}).then(data => {
             setArticles(data)
+            setLoading(false)
         })
     }, [])
 
     return (
         <div className="flex-space-between">
             <ArticleList>
-                {articles.map(article => <ArticleItem article={article} key={article.id} />)}
+                <Spinner loading={loading}>
+                    {articles.map(article => <ArticleItem article={article} key={article.id} />)}
+                </Spinner>
             </ArticleList>
             <CardList>
                 <MyCard title="Simple Blog" content={<p>Hello</p>}/>

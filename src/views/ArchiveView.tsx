@@ -7,14 +7,17 @@ import {MyCard} from "../components/Card";
 import {ArchiveList} from "../components/ArchiveList";
 import {useArchives} from "../utils/archiveUtils";
 import {useWebsiteTitle} from "../utils/websiteUtils";
+import {Spinner} from "../components/Spinner";
 
 export const ArchiveView = () => {
     useWebsiteTitle("Archive")
     const {archives} = useArchives();
     const {year, month} = useParams();
     const [articles, setArticles] = useState<Article[]>([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         const param: GetArticlesParam = {
             page: 1,
             pageSize: 10
@@ -27,6 +30,7 @@ export const ArchiveView = () => {
         }
         getArticles(param).then(data => {
             setArticles(data)
+            setLoading(false)
         })
     }, [year, month])
 
@@ -36,7 +40,9 @@ export const ArchiveView = () => {
                 <MyCard title="Archive" content={<ArchiveList archives={archives} />}/>
             </div>
             <div style={{width: "65rem"}}>
-                {articles.map(article => <ArticleItem article={article} key={article.id} />)}
+                <Spinner loading={loading}>
+                    {articles.map(article => <ArticleItem article={article} key={article.id} />)}
+                </Spinner>
             </div>
         </div>
     )
