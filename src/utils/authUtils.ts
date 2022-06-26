@@ -8,17 +8,16 @@ export const useAuth = () => {
     const user = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
 
-    const userLogin = useCallback(async (values: LoginParam, callback: () => void = () => {}) => {
+    const userLogin = useCallback(async (values: LoginParam) => {
         const user = await dispatch(login(values))
         if (user && user.token) {
             localStorage.setItem(TOKEN_KEY, user.token)
         }
-        callback()
+        return user
     }, [dispatch])
 
-    const userLogout = useCallback(async (callback: () => void = () => {}) => {
+    const userLogout = useCallback(async () => {
         await dispatch(logout())
-        callback()
     }, [dispatch])
 
     const appInit = useCallback(() => {

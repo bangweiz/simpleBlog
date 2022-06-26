@@ -5,20 +5,19 @@ import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "../../utils/authUtils";
 import {useLocation} from "react-router";
 import {breakpointVariables, colorVariables} from "../../config/style";
+import {message} from "antd";
 
 export const Header = () => {
     const {user, logout} = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
 
-    const redirect = () => {
+    const onLogout = async () => {
+        await logout()
+        message.info("You have logged out")
         if (location.pathname === '/new') {
             navigate("/")
         }
-    }
-
-    const onLogout = () => {
-        logout(redirect)
     }
 
     const Login = (

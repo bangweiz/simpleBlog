@@ -5,12 +5,13 @@ import {colorVariables} from "../config/style";
 import {ButtonHTMLType} from "antd/es/button/button";
 
 export const PrimaryButton = (props: Props) => {
-    const {content, onClick, disabled, type, style} = props
+    const {content, onClick, disabled, type, style, loading} = props
     return (
         <MyButton
             onClick={onClick}
             disabled={disabled}
             htmlType={type}
+            loading={loading}
             style={style}
         >
             {content}
@@ -23,6 +24,7 @@ interface Props {
     content: string
     onClick?: () => void
     disabled?: boolean
+    loading?: boolean
     style?: {[key: string]: string}
 }
 
