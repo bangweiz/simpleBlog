@@ -4,66 +4,41 @@ import {Article, GetArticlesParam, PublishArticleParam} from "../types/article";
 import {BASE_URL} from "../config";
 
 export const getArticles = async (param: GetArticlesParam): Promise<Article[]> => {
-    try {
-        const res = await axios.post<Result<Article[]>>(`${BASE_URL}/articles`, param)
-        if (res.data.success) {
-            return res.data.data
-        }
-        return []
-    } catch (e) {
-        console.error(e)
-        return []
+    const res = await axios.post<Result<Article[]>>(`${BASE_URL}/articles`, param)
+    if (res.data.success) {
+        return res.data.data
     }
+    return []
 }
 
 export const getArticleById = async (id: string): Promise<Article | null> => {
-    try {
-        const res = await axios.get<Result<Article>>(`${BASE_URL}/articles/view/${id}`)
-        if (res.data.success) {
-            return res.data.data
-        }
-        return null
-    } catch (e) {
-        console.error(e)
-        return null
+    const res = await axios.get<Result<Article>>(`${BASE_URL}/articles/view/${id}`)
+    if (res.data.success) {
+        return res.data.data
     }
+    return null
 }
 
 export const getHotArticles = async (): Promise<Article[]> => {
-    try {
-        const res = await axios.get<Result<Article[]>>(`${BASE_URL}/articles/hot`)
-        if (res.data.success) {
-            return res.data.data
-        }
-        return []
-    } catch (e) {
-        console.error(e)
-        return []
+    const res = await axios.get<Result<Article[]>>(`${BASE_URL}/articles/hot`)
+    if (res.data.success) {
+        return res.data.data
     }
+    return []
 }
 
 export const getRecentArticles = async (): Promise<Article[]> => {
-    try {
-        const res = await axios.get<Result<Article[]>>(`${BASE_URL}/articles/new`)
-        if (res.data.success) {
-            return res.data.data
-        }
-        return []
-    } catch (e) {
-        console.error(e)
-        return []
+    const res = await axios.get<Result<Article[]>>(`${BASE_URL}/articles/new`)
+    if (res.data.success) {
+        return res.data.data
     }
+    return []
 }
 
 export const publishArticle = async (prams: PublishArticleParam): Promise<string> => {
-    try {
-        const res = await axios.post<Result<{id: string}>>(`${BASE_URL}/articles/publish`, prams)
-        if (res.data.success) {
-            return res.data.data.id
-        }
-        return ''
-    } catch (e) {
-        console.error(e)
-        return ''
+    const res = await axios.post<Result<{id: string}>>(`${BASE_URL}/articles/publish`, prams)
+    if (res.data.success) {
+        return res.data.data.id
     }
+    return ''
 }

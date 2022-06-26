@@ -20,7 +20,7 @@ export const Register = () => {
         <Container>
             <FromContainer>
                 <Typography.Title level={2} style={{textAlign: "center"}}>
-                    <strong>REGISTER</strong>
+                    <strong>SIGN UP</strong>
                 </Typography.Title>
                 <Form
                     name="basic"

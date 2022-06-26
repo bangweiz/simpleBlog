@@ -66,7 +66,7 @@ export const Login = () => {
                     </Form.Item>
                 </Form>
                 <Text>
-                    Do not have an account? Go to <Link to="/register">Register</Link>
+                    Do not have an account? Go to <Link to="/register">Sign Up</Link>
                 </Text>
             </FromContainer>
         </Container>
