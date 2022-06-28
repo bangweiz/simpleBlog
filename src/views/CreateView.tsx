@@ -44,7 +44,7 @@ export const CreateView = () => {
     }
 
     const onMDChange = (value?: string, event?: ChangeEvent<HTMLTextAreaElement>, state?: any) => {
-        if (value) {
+        if (typeof value === 'string') {
             setValue(value)
         }
     }
