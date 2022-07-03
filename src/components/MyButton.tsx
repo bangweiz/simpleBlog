@@ -2,11 +2,12 @@ import React from "react";
 import styled from "@emotion/styled";
 import {Button} from "antd";
 import {colorVariables} from "../config/style";
+import classNames from "classnames";
 
 export const MyButton = (props: Props) => {
-    const {content} = props
+    const {content, active} = props
     return (
-        <ButtonComponent>
+        <ButtonComponent className={classNames({'active': active})}>
             {content}
         </ButtonComponent>
     )
@@ -17,12 +18,20 @@ const ButtonComponent = styled(Button)`
   border-color: ${colorVariables.primaryColor};
   margin: .5rem;
   
-  &:hover {
-    color: ${colorVariables.primaryColor};
+  &:hover, &:active, &:focus {
+    color: ${colorVariables.white};
     border-color: ${colorVariables.primaryColor};
+    background-color: ${colorVariables.primaryColor};
+  }
+  
+  &.active {
+    color: ${colorVariables.white};
+    border-color: ${colorVariables.primaryColor};
+    background-color: ${colorVariables.primaryColor};
   }
 `
 
 interface Props {
-    content: string
+    content: string,
+    active?: boolean
 }

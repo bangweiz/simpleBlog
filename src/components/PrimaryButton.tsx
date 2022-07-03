@@ -33,7 +33,7 @@ const MyButton = styled(Button)`
   background-color: ${colorVariables.primaryColor};
   color: ${colorVariables.white};
   
-  &:hover {
+  &:hover, &:active, &:focus {
     border-color: ${colorVariables.primaryColor};
     background-color: ${colorVariables.primaryColor};
     color: ${colorVariables.white};

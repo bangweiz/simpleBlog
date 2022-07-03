@@ -31,10 +31,6 @@ export const CreateView = () => {
         return {label: tag.tagName, value: tag.id}
     })
 
-    const onCategoryChange = (value: string) => {
-        setCategory(value)
-    }
-
     const onTagsChange = (checkedValues: CheckboxValueType[]) => {
         setTag(checkedValues as string[])
     };
@@ -127,7 +123,7 @@ export const CreateView = () => {
                         status={categoryErr ? "error" : ""}
                         id="category-input"
                         value={category}
-                        onChange={onCategoryChange}
+                        onChange={setCategory}
                         style={{width: "20rem"}}
                     >
                         <Select.Option value="">Please Select a Category</Select.Option>

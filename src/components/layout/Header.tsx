@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import styled from "@emotion/styled";
 import {EditOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
@@ -6,29 +6,30 @@ import {useAuth} from "../../utils/authUtils";
 import {useLocation} from "react-router";
 import {breakpointVariables, colorVariables} from "../../config/style";
 import {message} from "antd";
+import classNames from "classnames";
 
 export const Header = () => {
     const {user, logout} = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
 
-    const onLogout = async () => {
+    const onLogout = useCallback(async () => {
         await logout()
         message.info("You have logged out")
         if (location.pathname === '/new') {
             navigate("/")
         }
-    }
+    }, [location.pathname, logout, navigate])
 
     const Login = (
         <>
             <li>
-                <Link to="/login" style={{color: "#5FB878"}}>
+                <Link to="/login" style={{color: colorVariables.primaryColor}}>
                     Login
                 </Link>
             </li>
             <li>
-                <Link to="/register" style={{color: "#5FB878"}}>
+                <Link to="/register" style={{color: colorVariables.primaryColor}}>
                     Sign up
                 </Link>
             </li>
@@ -38,9 +39,9 @@ export const Header = () => {
     const Logout = (
         <li
             onClick={onLogout}
-            style={{cursor: "pointer", color: "#5FB878"}}
+            style={{cursor: "pointer", color: colorVariables.primaryColor}}
         >
-            Logout
+            Hello, {user?.nickname}
         </li>
     )
 
@@ -53,27 +54,27 @@ export const Header = () => {
             </Title>
             <List>
                 <li>
-                    <Link to="/">
+                    <Link to="/" className={classNames({'active': location.pathname === '/'})}>
                         Home
                     </Link>
                 </li>
                 <li>
-                    <Link to="/category">
+                    <Link to="/category" className={classNames({'active': location.pathname === '/category'})}>
                         Categories
                     </Link>
                 </li>
                 <li>
-                    <Link to="/tag">
+                    <Link to="/tag" className={classNames({'active': location.pathname === '/tag'})}>
                         Tags
                     </Link>
                 </li>
                 <li>
-                    <Link to="/archive">
+                    <Link to="/archive" className={classNames({'active': location.pathname === '/archive'})}>
                         Archive
                     </Link>
                 </li>
                 <li>
-                    <Link to="new">
+                    <Link to="new" className={classNames({'active': location.pathname === '/new'})}>
                         <EditOutlined />
                         Write a Blog
                     </Link>
@@ -128,6 +129,10 @@ const List = styled.ul`
       color: ${colorVariables.textColor};
       
       &:hover {
+        color: ${colorVariables.primaryColor};
+      }
+      
+      &.active {
         color: ${colorVariables.primaryColor};
       }
     }

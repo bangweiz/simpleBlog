@@ -39,7 +39,7 @@ export const ArchiveView = () => {
     return (
         <Container className="flex-space-between">
             <div className="archive">
-                <MyCard title="Archive" content={<ArchiveList archives={archives} />}/>
+                <MyCard title="Archive" content={<ArchiveList archives={archives} year={year} month={month} />}/>
             </div>
             <div className="articles">
                 <Spinner loading={loading}>
