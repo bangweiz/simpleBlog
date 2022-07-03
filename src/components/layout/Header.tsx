@@ -7,6 +7,7 @@ import {useLocation} from "react-router";
 import {breakpointVariables, colorVariables} from "../../config/style";
 import {message} from "antd";
 import classNames from "classnames";
+import {LogoutLink} from "./LogoutLink";
 
 export const Header = () => {
     const {user, logout} = useAuth()
@@ -36,15 +37,6 @@ export const Header = () => {
         </>
     )
 
-    const Logout = (
-        <li
-            onClick={onLogout}
-            style={{cursor: "pointer", color: colorVariables.primaryColor}}
-        >
-            Hello, {user?.nickname}
-        </li>
-    )
-
     return (
         <MyHeader>
             <Title>
@@ -69,7 +61,7 @@ export const Header = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/archive" className={classNames({'active': location.pathname === '/archive'})}>
+                    <Link to="/archive" className={classNames({'active': location.pathname.includes('/archive')})}>
                         Archive
                     </Link>
                 </li>
@@ -82,7 +74,7 @@ export const Header = () => {
             </List>
 
             <List>
-                {user?.id ? Logout : Login}
+                {user?.id ? <LogoutLink onLogout={onLogout} user={user} /> : Login}
             </List>
         </MyHeader>
     )
