@@ -32,9 +32,6 @@ const MyHeader = styled.header`
   background-color: ${colorVariables.white};
   display: grid;
   grid-template-columns: 24rem 1fr 36rem;
-  position: sticky;
-  top: 0;
-  z-index: 10;
   
   @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
     display: none;

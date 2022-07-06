@@ -13,6 +13,9 @@ import {MyTextArea} from "../components/MyTextArea";
 import {colorVariables} from "../config/style"
 import {useWebsiteTitle} from "../utils/websiteUtils";
 import {MySkeleton} from "../components/MySkeleton";
+import {convertRowHeadings} from "../utils/stringUtils";
+import {ArticleHeading} from "../types/articleHeading";
+import {ArticleContent} from "../components/ArticleContent";
 
 export const ArticleView = () => {
     useWebsiteTitle("Article Detail")
@@ -20,59 +23,67 @@ export const ArticleView = () => {
     const {comments} = useComments(id);
 
     const [article, setArticle] = useState<Article>()
+    const [headings, setHeadings] = useState<ArticleHeading[]>([])
     const [loading, setLoading] = useState(false)
+
     useEffect(() => {
         setLoading(true)
         getArticleById(id || '').then(data => {
             if (data) {
+                const regXHeader = /#{2,6}.+/g
+                setHeadings(convertRowHeadings(data.body?.content.match(regXHeader) || []))
                 setArticle(data)
                 setLoading(false)
             }
         })
     }, [id])
 
-
     return (
-        <div>
-            <BackTop />
-            <MySkeleton loading={loading}>
-                <div>
-                    <Typography.Title level={1}>{article?.title}</Typography.Title>
-                </div>
-                <ProfileContainer>
-                    <Avatar
-                        src={<img src="https://i.ibb.co/y0gLb0N/default-avatar.jpg" alt="default-avatar" />}
-                    />
-                    <div style={{display: "inline-block"}}>
-                        <div className="author">
-                            <Typography.Text><strong>{article?.author}</strong></Typography.Text>
-                        </div>
-                        <div className="time">
-                            <Typography.Text>
-                                {article?.createDate}, views: {article?.viewCounts}, comments: {article?.commentCounts}
-                            </Typography.Text>
-                        </div>
+        <div style={{marginRight: "-30rem", display: "flex"}}>
+            <div style={{width: "96rem"}}>
+                <BackTop />
+                <MySkeleton loading={loading}>
+                    <div>
+                        <Typography.Title level={1}>{article?.title}</Typography.Title>
                     </div>
-                </ProfileContainer>
-                <MDContainer>
-                    <MDDisplay content={article?.body?.content || ''} />
-                </MDContainer>
-                <Alert message="End of the article" type="success" style={{textAlign: "center"}}/>
-                <TagCategoryContainer>
-                    Tags: <TagList tags={article?.tags || []} />
-                </TagCategoryContainer>
-                <TagCategoryContainer>
-                    Category:
-                    <Link to={`/articles?categoryId=${article?.category?.id}`}>
-                        {article?.category?.categoryName}
-                    </Link>
-                </TagCategoryContainer>
-            </MySkeleton>
-            <CommentsContainer>
-                <Typography.Title level={2}>Comments</Typography.Title>
-                <MyTextArea articleId={id || ''}/>
-                <NestedComments comments={comments} articleId={id || ''}/>
-            </CommentsContainer>
+                    <ProfileContainer>
+                        <Avatar
+                            src={<img src="https://i.ibb.co/y0gLb0N/default-avatar.jpg" alt="default-avatar" />}
+                        />
+                        <div style={{display: "inline-block"}}>
+                            <div className="author">
+                                <Typography.Text><strong>{article?.author}</strong></Typography.Text>
+                            </div>
+                            <div className="time">
+                                <Typography.Text>
+                                    {article?.createDate}, views: {article?.viewCounts}, comments: {article?.commentCounts}
+                                </Typography.Text>
+                            </div>
+                        </div>
+                    </ProfileContainer>
+                    <MDContainer>
+                        <MDDisplay content={article?.body?.content || ''} />
+                    </MDContainer>
+                    <Alert message="End of the article" type="success" style={{textAlign: "center"}}/>
+                    <TagCategoryContainer>
+                        Tags: <TagList tags={article?.tags || []} />
+                    </TagCategoryContainer>
+                    <TagCategoryContainer>
+                        Category:
+                        <Link to={`/articles?categoryId=${article?.category?.id}`}>
+                            {article?.category?.categoryName}
+                        </Link>
+                    </TagCategoryContainer>
+                </MySkeleton>
+                <CommentsContainer>
+                    <Typography.Title level={2}>Comments</Typography.Title>
+                    <MyTextArea articleId={id || ''}/>
+                    <NestedComments comments={comments} articleId={id || ''}/>
+                </CommentsContainer>
+            </div>
+            <div style={{paddingTop: "12rem"}}>
+                <ArticleContent content={headings} />
+            </div>
         </div>
     )
 }

@@ -37,6 +37,7 @@ interface Props {
 const MyHeader = styled.header`
   display: none;
   background-color: ${colorVariables.white};
+  position: relative;
 
   @media screen and (max-width: ${breakpointVariables.tabletLandscape}) {
     display: block;
@@ -67,6 +68,11 @@ const MyHeader = styled.header`
   
   .mobile-header-links {
     display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 10;
+    background-color: ${colorVariables.white};
+    width: 100%;
     
     &.active {
       display: block;

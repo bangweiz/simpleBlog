@@ -20,7 +20,7 @@ export const Header = () => {
     }, [location.pathname, logout, navigate])
 
     return (
-        <div>
+        <div style={{position: "sticky", top: "0", zIndex: "10"}}>
             <DesktopHeader path={location.pathname} user={user} onLogout={onLogout} />
             <MobileHeader path={location.pathname} user={user} onLogout={onLogout}/>
         </div>
