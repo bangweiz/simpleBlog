@@ -16,6 +16,7 @@ import {MySkeleton} from "../components/MySkeleton";
 import {convertRowHeadings} from "../utils/stringUtils";
 import {ArticleHeading} from "../types/articleHeading";
 import {ArticleContent} from "../components/ArticleContent";
+import {debounce} from "../utils/commonUtils";
 
 export const ArticleView = () => {
     useWebsiteTitle("Article Detail")
@@ -25,6 +26,7 @@ export const ArticleView = () => {
     const [article, setArticle] = useState<Article>()
     const [headings, setHeadings] = useState<ArticleHeading[]>([])
     const [loading, setLoading] = useState(false)
+    const [scrollY, setScrollY] = useState(0)
 
     useEffect(() => {
         setLoading(true)
@@ -37,6 +39,24 @@ export const ArticleView = () => {
             }
         })
     }, [id])
+
+    useEffect(() => {
+        window.addEventListener('scroll', debounce((e) => {
+            if (window.scrollY !== scrollY) {
+                setScrollY(window.scrollY)
+            }
+        }, 500), false)
+    })
+
+    useEffect(() => {
+        const heading2 = document.getElementsByTagName('h3');
+        for (let i = 0; i < heading2.length; i++) {
+            console.log(heading2[i].offsetTop, scrollY)
+        }
+        // console.log(document.getElementsByTagName('h2'))
+        // console.log(document.getElementsByTagName('h3'))
+        // console.log(document.getElementsByTagName('h4'))
+    }, [scrollY])
 
     return (
         <div style={{marginRight: "-30rem", display: "flex"}}>
