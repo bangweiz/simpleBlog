@@ -1,7 +1,10 @@
-import {Comment, PublishCommentParam} from "../types/comment";
 import axios from "axios";
+import {Comment, PublishCommentParam} from "../types/comment";
 import {Result} from "../types/result";
 import {BASE_URL} from "../config";
+import {addErrCatchInterceptors} from "../interceptor/errCatchInterceptor";
+
+addErrCatchInterceptors(axios)
 
 export const getCommentsByArticleId = async (id: string): Promise<Comment[]> => {
     const res = await axios.get<Result<Comment[]>>(`${BASE_URL}/comments/${id}`)

@@ -1,8 +1,11 @@
-import {LoginParam, RegisterParam} from "../types/auth";
 import axios from "axios";
+import {LoginParam, RegisterParam} from "../types/auth";
 import {Result} from "../types/result";
 import {BASE_URL} from "../config";
 import {User} from "../types/user";
+import {addErrCatchInterceptors} from "../interceptor/errCatchInterceptor";
+
+addErrCatchInterceptors(axios)
 
 export const login = async (data: LoginParam): Promise<User | null> => {
     const res = await axios.post<Result<User>>(`${BASE_URL}/login`, data)

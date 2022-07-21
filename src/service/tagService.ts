@@ -2,6 +2,9 @@ import axios from "axios";
 import {Tag} from "../types/tag";
 import {Result} from "../types/result";
 import {BASE_URL} from "../config";
+import {addErrCatchInterceptors} from "../interceptor/errCatchInterceptor";
+
+addErrCatchInterceptors(axios)
 
 export const getHotTags = async (): Promise<Tag[]> => {
     const res = await axios.get<Result<Tag[]>>(`${BASE_URL}/tags/hot`)

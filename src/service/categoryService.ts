@@ -1,7 +1,10 @@
-import {Category} from "../types/category";
 import axios from "axios";
+import {Category} from "../types/category";
 import {Result} from "../types/result";
 import {BASE_URL} from "../config";
+import {addErrCatchInterceptors} from "../interceptor/errCatchInterceptor";
+
+addErrCatchInterceptors(axios)
 
 export const getCategories = async (): Promise<Category[]> => {
     const res = await axios.get<Result<Category[]>>(`${BASE_URL}/categories`)

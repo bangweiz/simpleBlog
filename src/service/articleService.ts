@@ -2,6 +2,9 @@ import axios from "axios";
 import {Result} from "../types/result";
 import {Article, GetArticlesParam, PublishArticleParam} from "../types/article";
 import {BASE_URL} from "../config";
+import {addErrCatchInterceptors} from "../interceptor/errCatchInterceptor";
+
+addErrCatchInterceptors(axios)
 
 export const getArticles = async (param: GetArticlesParam): Promise<Article[]> => {
     const res = await axios.post<Result<Article[]>>(`${BASE_URL}/articles`, param)
